@@ -18,6 +18,10 @@ public class Main {
         printArtistInfo("Bjork", bjorkRange, bjorkMaxRange, chronology(bjorkRange));
         printArtistInfo("RadioHead", radioheadRange, radioheadMaxRange, chronology(radioheadRange));
         printArtistInfo("Kanye West", kanyeWestRange, kanyeWestMaxRange, chronology(kanyeWestRange));
+        System.out.println();
+        printAlbumsInfo("Bjork", bjork,albumsByTenYears(bjork));
+        printAlbumsInfo("RadioHead", radiohead,albumsByTenYears(radiohead));
+        printAlbumsInfo("Kanye West", kanyeWest,albumsByTenYears(kanyeWest));
 
 
     }
@@ -53,6 +57,32 @@ public class Main {
         }
         builder.append("*");
         return builder.toString();
+    }
+
+    public static List<Integer> albumsByTenYears(List<Integer> list) {
+        List<Integer> countsAlbum = new ArrayList<>();
+        int count = 0;
+        for (int i = 0; i < list.size() - 1; i++) {
+            int startYear = list.get(i);
+            int nextYear = list.get(i + 1);
+            if(nextYear - startYear <= 10){
+                count++;
+            }
+            else{
+                countsAlbum.add(count);
+                count = 1;
+            }
+
+        }
+        countsAlbum.add(count);
+        return countsAlbum;
+    }
+
+    public static void printAlbumsInfo(String artistName,List<Integer> artistNameList, List<Integer> decadeAlbumsList){
+        decadeAlbumsList = albumsByTenYears(artistNameList);
+        for (int i = 0; i < artistNameList.size(); i++) {
+            System.out.println("У исполнителя " + artistName + " в " + artistNameList.get(i) + " году количество альбомов равно: " + decadeAlbumsList.get(i));
+        }
     }
 //    метод printArtistInfo для выведения печати вместо повторения System.out.println:
 
